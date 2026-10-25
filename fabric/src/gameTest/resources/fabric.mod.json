@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "id": "tcinventoryscan_gametest",
+  "version": "1.0.0",
+  "name": "Inventory Scanning isolated GameTests",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.foreva.tcinventoryscan.fabric.testing.InventoryScanGameTestBootstrap"],
+    "fabric-gametest": ["dev.foreva.tcinventoryscan.fabric.testing.InventoryScanGameTests"]
+  },
+  "mixins": ["tcinventoryscan-gametest.mixins.json"],
+  "depends": {
+    "tcinventoryscan": "*",
+    "thaumcraft": "0.1.0-alpha.6",
+    "fabric-gametest-api-v1": "*"
+  }
+}

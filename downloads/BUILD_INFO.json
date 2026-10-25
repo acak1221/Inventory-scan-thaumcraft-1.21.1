@@ -1,0 +1,39 @@
+{
+  "version": "1.0.0+1.21.1",
+  "minecraft": "1.21.1",
+  "java": 21,
+  "thaumcraft": "0.1.0-alpha.6",
+  "artifacts": [
+    {
+      "loader": "fabric",
+      "file": "ThaumicInventoryScanning-fabric-1.0.0+1.21.1.jar",
+      "sha256": "3c703653cb2a050b255fa7e840fd9a0092e1154712cfc2d71b9daf8e61eb3e32",
+      "bytes": 38317
+    },
+    {
+      "loader": "neoforge",
+      "file": "ThaumicInventoryScanning-neoforge-1.0.0+1.21.1.jar",
+      "sha256": "0062bedd8e8b4cb55fdd4b2c8dff02647a7c07a8253ff638d4fa8e090ef18955",
+      "bytes": 39094
+    }
+  ],
+  "tests": {
+    "junit": {
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    "neoforge_native": {
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    "fabric_native": {
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "physical_clients": "Both normal dev clients inspected, server state saved and normal exit0; see docs/VERIFICATION.md",
+  "scope": "Standalone addon, external Thaumcraft not bundled"
+}

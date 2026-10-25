@@ -1,0 +1,8 @@
+{
+  "tcinventoryscan.scanning": "Сканирование",
+  "tcinventoryscan.thaumometerTooltip": "Доступно сканирование в инвентаре",
+  "tcinventoryscan.thaumometerTooltipMore1": "Возьмите таумометр на курсор",
+  "tcinventoryscan.thaumometerTooltipMore2": "и наведите на предмет для сканирования.",
+  "tcinventoryscan.serverUnavailable": "Сканирование в инвентаре недоступно на этом сервере.",
+  "tcinventoryscan.creativeInventoryUnsupported": "Откройте сундук или обычный инвентарь для сканирования."
+}

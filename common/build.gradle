@@ -1,0 +1,22 @@
+architectury { common rootProject.enabled_platforms.split(',') }
+loom { mixin { defaultRefmapName.set('tcinventoryscan.refmap.json') } }
+dependencies {
+ modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+ modImplementation "dev.architectury:architectury:$rootProject.architectury_api_version"
+ compileOnly 'io.github.llamalad7:mixinextras-fabric:0.4.1'
+ annotationProcessor 'io.github.llamalad7:mixinextras-fabric:0.4.1'
+ testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+ testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+processResources {
+ from(rootProject.projectDir) { include 'LICENSE', 'THIRD_PARTY_NOTICES.md' }
+}
+sourceSets {
+ gameTest {
+  compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath
+  runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath
+ }
+}
+// Explicit source-set registration replaces Loom's automatic main selection.
+loom.mixin.add(sourceSets.main, 'tcinventoryscan.refmap.json')
+loom.mixin.add(sourceSets.gameTest, 'tcinventoryscan-gametest.refmap.json')

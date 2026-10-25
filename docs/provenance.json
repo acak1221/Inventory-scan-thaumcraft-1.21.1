@@ -1,0 +1,20 @@
+{
+  "reference": {
+    "name": "tcinventoryscan-mc1.7.10-1.0.11.jar",
+    "bytes": 17202,
+    "sha256": "8f7ddf60d19903c99b6e72f7ae52fad7484999e72affc6ff0559b0502ec7dfad",
+    "purpose": "Read-only behavior reference supplied by the user; never executed or bundled"
+  },
+  "original_author": "Christopher 'BlayTheNinth' Baker",
+  "project_url": "https://www.curseforge.com/minecraft/mc-mods/thaumcraft-inventory-scanning",
+  "target": {
+    "minecraft": "1.21.1",
+    "java": 21,
+    "thaumcraft": "0.1.0-alpha.6",
+    "fabric_source_commit": "bebe0a76560e86ceb63f76e59461414c9a220cad",
+    "neoforge_source_commit": "a3516fbfd8dd705f27fbd9c5c01b5dd1eff71b85",
+    "fabric_jar_sha256": "ef11cfc4e22222bf778e0db6fe8e30edc4eefc8918c509e771687e2dc060544a",
+    "neoforge_jar_sha256": "e949d3ece9c9d1a75b532e62ec6f7e283ac1fd6690209e60865be3d6036c8e72"
+  },
+  "implementation": "New standalone implementation for the FOREVA port. Reference classes, original assets and Thaumcraft code are not included in addon JARs."
+}

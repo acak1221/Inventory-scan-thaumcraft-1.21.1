@@ -1,0 +1,42 @@
+// Applied only to addon loader projects. TC remains an external runtime mod.
+def verifyAddonRuntime = tasks.register('verifyAddonRuntimeIsolation') {
+ group = 'verification'
+ doLast {
+  def forbidden = rootProject.thaumcraftNamedJar.canonicalFile
+  [sourceSets.main, sourceSets.gameTest].each { source ->
+   if (source.runtimeClasspath.files.any { it.canonicalFile == forbidden }) {
+    throw new GradleException("Mapped compile-only TC API leaked into ${project.path}:${source.name} runtime")
+   }
+  }
+  def packages = { files -> files.findAll { it.name.endsWith('.java') }.collectEntries { file ->
+   def match = file.getText('UTF-8') =~ /(?m)^\s*package\s+([\w.]+)\s*;/
+   [(file): match.find() ? match.group(1) : null]
+  } }
+  def production = packages(files(project(':common').sourceSets.main.allJava, sourceSets.main.allJava).files).values().findAll { it != null }.toSet()
+  def collisions = packages(files(project(':common').sourceSets.gameTest.allJava, sourceSets.gameTest.allJava).files).findAll { file, pkg -> production.contains(pkg) }
+  if (!collisions.isEmpty()) throw new GradleException("Test helpers split production packages: ${collisions.keySet()}")
+ }
+}
+// Applied script classloaders cannot resolve Loom task types from plugin DSL.
+tasks.matching { it.name in ['runClient', 'runServer', 'runGameTest'] }.configureEach {
+ dependsOn verifyAddonRuntime
+}
+def remapped = tasks.named('remapJar')
+def verifyAddonJar = tasks.register('verifyAddonJar') {
+ group = 'verification'
+ dependsOn remapped, verifyAddonRuntime
+ doLast {
+  def archive = remapped.get().archiveFile.get().asFile
+  new java.util.zip.ZipFile(archive).withCloseable { zip ->
+   def names = zip.entries().collect { it.name }
+   def forbidden = names.findAll { name ->
+    name.startsWith('thaumcraft/') || name.startsWith('assets/thaumcraft/') || name.startsWith('data/thaumcraft/')
+     || name.contains('/testing/') || name.contains('tcinventoryscan_gametest') || name.contains('tcinventoryscan-gametest')
+     || name == 'data/tcinventoryscan/structure/empty.nbt' || name.endsWith('.jar')
+   }
+   if (!forbidden.isEmpty()) throw new GradleException("External TC or test support bundled in addon: ${forbidden}")
+   if (!names.containsAll(['LICENSE', 'THIRD_PARTY_NOTICES.md'])) throw new GradleException('Packaged attribution missing')
+  }
+ }
+}
+tasks.named('check') { dependsOn verifyAddonJar }

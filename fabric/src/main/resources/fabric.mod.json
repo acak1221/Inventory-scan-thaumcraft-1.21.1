@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "tcinventoryscan",
+  "version": "${version}",
+  "name": "Thaumic Inventory Scanning",
+  "description": "Inventory scanning addon for the Thaumcraft 1.21.1 alpha.6 port.",
+  "authors": ["FOREVA contributors"],
+  "license": "See THIRD_PARTY_NOTICES.md",
+  "environment": "*",
+  "entrypoints": {
+    "main": ["dev.foreva.tcinventoryscan.fabric.FabricInventoryScan"],
+    "client": ["dev.foreva.tcinventoryscan.fabric.FabricInventoryScanClient"]
+  },
+  "mixins": ["tcinventoryscan.mixins.json"],
+  "depends": {
+    "minecraft": "1.21.1",
+    "java": ">=21",
+    "fabricloader": ">=0.16.14",
+    "fabric-api": "*",
+    "architectury": ">=13.0.11",
+    "thaumcraft": "0.1.0-alpha.6"
+  }
+}

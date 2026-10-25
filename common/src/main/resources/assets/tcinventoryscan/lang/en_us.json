@@ -1,0 +1,8 @@
+{
+  "tcinventoryscan.scanning": "Scanning",
+  "tcinventoryscan.thaumometerTooltip": "Inventory Scanning available",
+  "tcinventoryscan.thaumometerTooltipMore1": "Hover items with the Thaumometer",
+  "tcinventoryscan.thaumometerTooltipMore2": "on the cursor to scan.",
+  "tcinventoryscan.serverUnavailable": "Inventory scanning is unavailable on this server.",
+  "tcinventoryscan.creativeInventoryUnsupported": "Open a chest or the regular inventory to scan items."
+}

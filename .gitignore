@@ -1,0 +1,14 @@
+/.tmp/
+/.gradle/
+/.idea/
+**/build/
+**/run/
+**/run-gametest/
+**/run-clienttest/
+*.class
+*.log
+*.iml
+/local.properties
+**/.gradle/
+**/.gradle21/
+**/.tmp/

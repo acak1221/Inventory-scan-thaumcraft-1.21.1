@@ -1,0 +1,55 @@
+plugins { id 'com.github.johnrengelman.shadow' }
+architectury { platformSetupLoomIde(); neoForge() }
+configurations {
+ common { canBeResolved = true; canBeConsumed = false }
+ compileClasspath.extendsFrom common
+ runtimeClasspath.extendsFrom common
+ developmentNeoForge.extendsFrom common
+ shadowBundle { canBeResolved = true; canBeConsumed = false }
+}
+dependencies {
+ neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
+ modImplementation "dev.architectury:architectury-neoforge:$rootProject.architectury_api_version"
+ common(project(path: ':common', configuration: 'namedElements')) { transitive = false }
+ shadowBundle project(path: ':common', configuration: 'transformProductionNeoForge')
+ // Only the matching production mod enters ModLauncher's runtime modules.
+ modRuntimeOnly files(rootProject.thaumcraftProductionJar('neoforge'))
+}
+processResources {
+ inputs.property 'version', project.version
+ filesMatching('META-INF/neoforge.mods.toml') { expand version: project.version }
+}
+shadowJar { configurations = [project.configurations.shadowBundle]; archiveClassifier = 'dev-shadow' }
+remapJar { inputFile.set shadowJar.archiveFile }
+tasks.withType(net.fabricmc.loom.task.AbstractRunTask).configureEach {
+ dependsOn rootProject.tasks.named('verifyThaumcraftInputs')
+}
+sourceSets {
+ gameTest {
+  compileClasspath += sourceSets.main.output + sourceSets.main.compileClasspath + project(':common').sourceSets.gameTest.output
+  runtimeClasspath += sourceSets.main.output + sourceSets.main.runtimeClasspath + project(':common').sourceSets.gameTest.output
+ }
+}
+loom.runs {
+ gameTest {
+  server()
+  source sourceSets.gameTest
+  vmArg '-Xmx2G'
+  mods {
+   tcinventoryscan { sourceSet sourceSets.main }
+   tcinventoryscan_gametest {
+    sourceSet sourceSets.gameTest
+    sourceSet project(':common').sourceSets.gameTest, project(':common')
+   }
+  }
+  vmArg '-Dneoforge.enableGameTest=true'
+  vmArg '-Dneoforge.gameTestServer=true'
+  vmArg '-Dneoforge.enabledGameTestNamespaces=tcinventoryscan'
+  vmArg "-Dtcinventoryscan.gametest.report-file=${layout.buildDirectory.file('gametest-results.xml').get().asFile.absolutePath}"
+  runDir 'run-gametest'
+ }
+}
+tasks.named('runGameTest') {
+ dependsOn tasks.named('gameTestClasses'), project(':common').tasks.named('gameTestClasses')
+}
+apply from: rootProject.file('gradle/addon-isolation.gradle')

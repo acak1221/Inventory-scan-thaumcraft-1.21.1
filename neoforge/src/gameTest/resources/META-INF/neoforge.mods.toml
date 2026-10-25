@@ -1,0 +1,19 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="See THIRD_PARTY_NOTICES.md"
+[[mods]]
+modId="tcinventoryscan_gametest"
+version="1.0.0"
+displayName="Inventory Scanning isolated GameTests"
+[[dependencies.tcinventoryscan_gametest]]
+modId="tcinventoryscan"
+type="required"
+versionRange="[1.0.0,)"
+ordering="AFTER"
+side="BOTH"
+[[dependencies.tcinventoryscan_gametest]]
+modId="thaumcraft"
+type="required"
+versionRange="[0.1.0-alpha.6]"
+ordering="AFTER"
+side="BOTH"
