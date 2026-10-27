@@ -20,7 +20,7 @@ tasks.register('verifyThaumcraftInputs') {
    if (!jar.isFile()) throw new GradleException("Missing external Thaumcraft $loader runtime: $jar")
    def sha = java.security.MessageDigest.getInstance('SHA-256').digest(jar.bytes).encodeHex().toString()
    if (sha != providers.gradleProperty("thaumcraft_${loader}_sha256").get()) {
-    throw new GradleException("Thaumcraft $loader runtime differs from the supported alpha.6 archive: $jar")
+    throw new GradleException("Thaumcraft $loader runtime differs from the supported 0.1.0-alpha.7 archive: $jar")
    }
   }
  }

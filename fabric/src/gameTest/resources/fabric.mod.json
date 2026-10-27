@@ -11,7 +11,7 @@
   "mixins": ["tcinventoryscan-gametest.mixins.json"],
   "depends": {
     "tcinventoryscan": "*",
-    "thaumcraft": "0.1.0-alpha.6",
+    "thaumcraft": "0.1.0-alpha.7",
     "fabric-gametest-api-v1": "*"
   }
 }

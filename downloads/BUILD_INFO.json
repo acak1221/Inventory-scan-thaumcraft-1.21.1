@@ -1,20 +1,20 @@
 {
-  "version": "1.0.0+1.21.1",
+  "version": "1.0.1+1.21.1",
   "minecraft": "1.21.1",
   "java": 21,
-  "thaumcraft": "0.1.0-alpha.6",
+  "thaumcraft": "0.1.0-alpha.7",
   "artifacts": [
     {
       "loader": "fabric",
-      "file": "ThaumicInventoryScanning-fabric-1.0.0+1.21.1.jar",
-      "sha256": "3c703653cb2a050b255fa7e840fd9a0092e1154712cfc2d71b9daf8e61eb3e32",
-      "bytes": 38317
+      "file": "ThaumicInventoryScanning-fabric-1.0.1+1.21.1.jar",
+      "sha256": "5c2db588ffc27a6e4a8989732c0c7e33b7ebf93117fb54eb3c2d3dafba17bf10",
+      "bytes": 38327
     },
     {
       "loader": "neoforge",
-      "file": "ThaumicInventoryScanning-neoforge-1.0.0+1.21.1.jar",
-      "sha256": "0062bedd8e8b4cb55fdd4b2c8dff02647a7c07a8253ff638d4fa8e090ef18955",
-      "bytes": 39094
+      "file": "ThaumicInventoryScanning-neoforge-1.0.1+1.21.1.jar",
+      "sha256": "a522bd264d0b6ed905579c3a75fb580097712a53961b74aeced29d414933be22",
+      "bytes": 39101
     }
   ],
   "tests": {
@@ -34,6 +34,6 @@
       "skipped": 0
     }
   },
-  "physical_clients": "Both normal dev clients inspected, server state saved and normal exit0; see docs/VERIFICATION.md",
+  "physical_clients": "Fabric dev client with Thaumcraft 4 Reload 0.1.0-alpha.7 inspected (inventory scan of cobblestone); NeoForge client not run for 1.0.1; see docs/VERIFICATION.md",
   "scope": "Standalone addon, external Thaumcraft not bundled"
 }

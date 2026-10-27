@@ -5,7 +5,7 @@ This is an unofficial, independently implemented Minecraft 1.21.1 adaptation of 
 Original project: https://www.curseforge.com/minecraft/mc-mods/thaumcraft-inventory-scanning
 Historical source reference: https://github.com/Searge-DP/TCInventoryScanning
 
-**Thaumcraft**, by Azanor, and the **Thaumcraft 4.2 FOREVA** port remain separate required mods. Their classes and assets are not bundled in this addon. Aspect textures and camera sounds are referenced by their existing Thaumcraft resource identifiers. This addon does not change ownership or license of Thaumcraft or the original addon.
+**Thaumcraft**, by Azanor, and the **Thaumcraft 4 Reload** port remain separate required mods. Their classes and assets are not bundled in this addon. Aspect textures and camera sounds are referenced by their existing Thaumcraft resource identifiers. This addon does not change ownership or license of Thaumcraft or the original addon.
 
 Minecraft is by Mojang Studios. Fabric, NeoForge and Architectury retain their respective authorship and licenses and are external dependencies.
 

@@ -10,11 +10,11 @@
   "target": {
     "minecraft": "1.21.1",
     "java": 21,
-    "thaumcraft": "0.1.0-alpha.6",
-    "fabric_source_commit": "bebe0a76560e86ceb63f76e59461414c9a220cad",
-    "neoforge_source_commit": "a3516fbfd8dd705f27fbd9c5c01b5dd1eff71b85",
-    "fabric_jar_sha256": "ef11cfc4e22222bf778e0db6fe8e30edc4eefc8918c509e771687e2dc060544a",
-    "neoforge_jar_sha256": "e949d3ece9c9d1a75b532e62ec6f7e283ac1fd6690209e60865be3d6036c8e72"
+    "thaumcraft": "0.1.0-alpha.7",
+    "fabric_source_commit": "3f97bfef8afae1c212cb1484fefe810f40dafab2",
+    "neoforge_source_commit": "3f97bfef8afae1c212cb1484fefe810f40dafab2",
+    "fabric_jar_sha256": "36d896fcd9272cee11a050a0101d5b4c8aba04876236df6925418eb5558719f3",
+    "neoforge_jar_sha256": "2f14df0d0d60abc8127b661b79c79772cac58f515864fab9a6d89b18570e3f9f"
   },
-  "implementation": "New standalone implementation for the FOREVA port. Reference classes, original assets and Thaumcraft code are not included in addon JARs."
+  "implementation": "New standalone implementation for the Thaumcraft 4 Reload port. Reference classes, original assets and Thaumcraft code are not included in addon JARs."
 }

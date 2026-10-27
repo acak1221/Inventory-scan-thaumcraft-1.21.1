@@ -1,4 +1,20 @@
-# Проверки версии 1.0.0+1.21.1
+# Проверки версии 1.0.1+1.21.1
+
+Дата: 27.10.2026. Перевод аддона на Thaumcraft 4 Reload `0.1.0-alpha.7` (сборка коммита основного репозитория `3f97bfef`). Код аддона не менялся: он собирается против API alpha.7 без правок. Изменены требуемая версия Thaumcraft в `fabric.mod.json` и `neoforge.mods.toml` (было ровно `0.1.0-alpha.6`, из-за чего 1.0.0 не загружается с alpha.7), закреплённые JAR и их SHA-256 в `gradle.properties` и `docs/provenance.json`, версия аддона и название проекта (FOREVA → Thaumcraft 4 Reload в текстах, LICENSE и метаданных; Java-пакеты `dev.foreva.*` и id `tcinventoryscan` не менялись).
+
+Классы Thaumcraft, которые вызывает аддон, сверены между исходным коммитом alpha.6 (`bebe0a76`) и `3f97bfef`: `HoveredSlotAspectRow`, `ScanManager`, `ScanCallbacks`, `KnowledgeAccess`, `ItemThaumometer`, `ScanResult` не изменились; в `EntityAspectBindings`, `ObjectAspectResolver` и `PlayerKnowledge` только добавления, вызываемые аддоном методы те же.
+
+| Область | Результат |
+|---|---|
+| Common JUnit | 6/6, без ошибок и пропусков |
+| Production build | `:fabric:build :neoforge:build` PASS (включая проверку изоляции JAR) |
+| Fabric dedicated GameTest | 13/13 со свежим миром; загружены `thaumcraft 0.1.0-alpha.7` и `tcinventoryscan 1.0.1+1.21.1` |
+| NeoForge dedicated GameTest | 13/13 со свежим миром; загружен `Thaumcraft-neoforge-0.1.0-alpha.7` (SHA-256 `2f14df0d…`) |
+| Fabric client | Настоящий клиент (Xvfb, 1280×720), новый survival-мир: таумометр на курсоре над булыжником — [надпись Scanning](images/fabric-alpha7-cobblestone-scanning.png), затем [аспекты Terra 1, Perditio 1 и уведомления об очках исследований](images/fabric-alpha7-cobblestone-scanned.png) |
+
+Не проверено для 1.0.1: клиент NeoForge, сканирование в сундуке и собственного персонажа в клиенте (покрыты GameTest), мультиплеер. Клиент Fabric после снимков закрыт принудительно, штатный выход с сохранением мира не проверялся. Звук не проверялся (в контейнере нет аудиоустройства).
+
+# Проверки версии 1.0.0+1.21.1 (Thaumcraft FOREVA alpha.6)
 
 Дата: 25.10.2026. Новая самостоятельная реализация поведения приложенного `tcinventoryscan-mc1.7.10-1.0.11.jar`; оригинал не исполнялся и не включён в аддон. Его контракт разобран по bytecode, ключевые выводы независимо проверены: [ORIGINAL_BEHAVIOR.ru.md](ORIGINAL_BEHAVIOR.ru.md). Атрибуция: [THIRD_PARTY_NOTICES.md](../THIRD_PARTY_NOTICES.md).
 

@@ -1,19 +1,21 @@
-# Thaumic Inventory Scanning — FOREVA port
+# Thaumic Inventory Scanning — Thaumcraft 4 Reload
 
-Готовые файлы: [NeoForge](downloads/ThaumicInventoryScanning-neoforge-1.0.0+1.21.1.jar), [Fabric](downloads/ThaumicInventoryScanning-fabric-1.0.0+1.21.1.jar). На странице файла нажмите **Download raw file**. Контрольные суммы: [SHA256SUMS.txt](downloads/SHA256SUMS.txt).
+Готовые файлы: [NeoForge](downloads/ThaumicInventoryScanning-neoforge-1.0.1+1.21.1.jar), [Fabric](downloads/ThaumicInventoryScanning-fabric-1.0.1+1.21.1.jar). На странице файла нажмите **Download raw file**. Контрольные суммы: [SHA256SUMS.txt](downloads/SHA256SUMS.txt).
 
-Отдельный аддон для **Thaumcraft 4.2 FOREVA 0.1.0-alpha.6**, **Minecraft 1.21.1**, **Java 21**. Это новая реализация поведения Thaumic Inventory Scanning от BlayTheNinth для порта TC4, а не JAR оригинала 1.7.10 и не аддон для Thaumcraft 6.
+Отдельный аддон для **Thaumcraft 4 Reload 0.1.0-alpha.7**, **Minecraft 1.21.1**, **Java 21**. Это новая реализация поведения Thaumic Inventory Scanning от BlayTheNinth для порта TC4, а не JAR оригинала 1.7.10 и не аддон для Thaumcraft 6.
 
 ## Установка
 
-Установите основной Thaumcraft FOREVA и его зависимости, затем положите **один** JAR аддона для своего загрузчика в `mods`:
+Установите основной Thaumcraft 4 Reload и его зависимости, затем положите **один** JAR аддона для своего загрузчика в `mods`:
 
 | Загрузчик | Требования |
 |---|---|
-| Fabric | Fabric Loader ≥0.16.14, Fabric API, Architectury API для Fabric ≥13.0.11, Fabric-версия Thaumcraft FOREVA alpha.6 |
-| NeoForge | NeoForge ≥21.1.259, Architectury API для NeoForge ≥13.0.11, NeoForge-версия Thaumcraft FOREVA alpha.6 |
+| Fabric | Fabric Loader ≥0.16.14, Fabric API, Architectury API для Fabric ≥13.0.11, Fabric-версия Thaumcraft 4 Reload 0.1.0-alpha.7 |
+| NeoForge | NeoForge ≥21.1.259, Architectury API для NeoForge ≥13.0.11, NeoForge-версия Thaumcraft 4 Reload 0.1.0-alpha.7 |
 
 Основной мод и зависимости в JAR аддона не включены. Менять основной мод не требуется. В одиночной игре установите аддон в свою сборку. На сервере он нужен серверу и тем клиентам, которые хотят пользоваться сканированием в инвентаре; канал пакетов объявлен необязательным. Клиент без аддона продолжает использовать обычный таумометр. Если сервер не поддерживает аддон, новый клиент не отправляет ему неизвестные пакеты.
+
+Версия аддона **1.0.1** требует ровно Thaumcraft 4 Reload `0.1.0-alpha.7`. Для прежнего Thaumcraft alpha.6 подходила версия 1.0.0 (она осталась в истории репозитория); с alpha.7 она не загрузится: её метаданные требуют alpha.6.
 
 ## Использование
 
@@ -34,8 +36,8 @@
 
 Понадобятся Java 21, Gradle wrapper и checkout основного [Thaumcraft](https://github.com/acak1221/Thaumcraft-1.21.1) в соседнем каталоге `Thaumcraft-1.21.1`.
 
-1. В основном проекте соберите `:common:jar` на Java 21, чтобы получить named API `common/build/devlibs/Thaumcraft-common-0.1.0-alpha.6-dev.jar`.
-2. Поместите **точные ранее выданные alpha.6 framing-fix JAR** основного мода в `fabric/build/libs/Thaumcraft-fabric-0.1.0-alpha.6.jar` и `neoforge/build/libs/Thaumcraft-neoforge-0.1.0-alpha.6.jar` основного проекта. Сборка проверяет их SHA256 из `gradle.properties`. Это внешние runtime-зависимости, они не входят в JAR аддона. Собственная пересборка основного мода может иметь другую контрольную сумму и не считается автоматически эквивалентной проверенным бинарникам.
+1. В основном проекте соберите `:common:jar` на Java 21, чтобы получить named API `common/build/devlibs/Thaumcraft-common-0.1.0-alpha.7-dev.jar`.
+2. Поместите **точные поддерживаемые JAR alpha.7** основного мода (сборка коммита `3f97bfef`, хеши в [docs/provenance.json](docs/provenance.json)) в `fabric/build/libs/Thaumcraft-fabric-0.1.0-alpha.7.jar` и `neoforge/build/libs/Thaumcraft-neoforge-0.1.0-alpha.7.jar` основного проекта. Сборка проверяет их SHA256 из `gradle.properties`. Это внешние runtime-зависимости, они не входят в JAR аддона. Собственная пересборка основного мода может иметь другую контрольную сумму и не считается автоматически эквивалентной проверенным бинарникам.
 3. В этом проекте выполните:
 
 ```sh

@@ -14,6 +14,6 @@ side="BOTH"
 [[dependencies.tcinventoryscan_gametest]]
 modId="thaumcraft"
 type="required"
-versionRange="[0.1.0-alpha.6]"
+versionRange="[0.1.0-alpha.7]"
 ordering="AFTER"
 side="BOTH"
