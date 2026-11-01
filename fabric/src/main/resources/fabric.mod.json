@@ -3,7 +3,7 @@
   "id": "tcinventoryscan",
   "version": "${version}",
   "name": "Thaumic Inventory Scanning",
-  "description": "Inventory scanning addon for Thaumcraft 4 Reload 0.1.0-alpha.7 (Minecraft 1.21.1).",
+  "description": "Inventory scanning addon for Thaumcraft 4 Reload (Minecraft 1.21.1).",
   "authors": ["Thaumcraft 4 Reload contributors"],
   "license": "See THIRD_PARTY_NOTICES.md",
   "environment": "*",
@@ -18,6 +18,6 @@
     "fabricloader": ">=0.16.14",
     "fabric-api": "*",
     "architectury": ">=13.0.11",
-    "thaumcraft": "0.1.0-alpha.7"
+    "thaumcraft": "*"
   }
 }

@@ -1,8 +1,8 @@
 # Thaumic Inventory Scanning — Thaumcraft 4 Reload
 
-Готовые файлы: [NeoForge](downloads/ThaumicInventoryScanning-neoforge-1.0.1+1.21.1.jar), [Fabric](downloads/ThaumicInventoryScanning-fabric-1.0.1+1.21.1.jar). На странице файла нажмите **Download raw file**. Контрольные суммы: [SHA256SUMS.txt](downloads/SHA256SUMS.txt).
+Готовые файлы **1.0.2+1.21.1**: [NeoForge](downloads/ThaumicInventoryScanning-neoforge-1.0.2+1.21.1.jar), [Fabric](downloads/ThaumicInventoryScanning-fabric-1.0.2+1.21.1.jar). На странице файла нажмите **Download raw file**. Также доступны в [GitHub Releases](https://github.com/acak1221/Inventory-scan-thaumcraft-1.21.1/releases). Контрольные суммы: [SHA256SUMS.txt](downloads/SHA256SUMS.txt). Изменения: [CHANGELOG.md](CHANGELOG.md).
 
-Отдельный аддон для **Thaumcraft 4 Reload 0.1.0-alpha.7**, **Minecraft 1.21.1**, **Java 21**. Это новая реализация поведения Thaumic Inventory Scanning от BlayTheNinth для порта TC4, а не JAR оригинала 1.7.10 и не аддон для Thaumcraft 6.
+Отдельный аддон для **Thaumcraft 4 Reload**, **Minecraft 1.21.1**, **Java 21**. В версии **1.0.2+1.21.1** снята проверка точной версии Thaumcraft: зависимость в метаданных обоих загрузчиков — `*`. Совместимость с другими сборками требует сохранения вызываемого API; это не заявка на поддержку всех версий Minecraft или Thaumcraft. Это новая реализация поведения Thaumic Inventory Scanning от BlayTheNinth для порта TC4, а не JAR оригинала 1.7.10 и не аддон для Thaumcraft 6.
 
 ## Установка
 
@@ -10,12 +10,12 @@
 
 | Загрузчик | Требования |
 |---|---|
-| Fabric | Fabric Loader ≥0.16.14, Fabric API, Architectury API для Fabric ≥13.0.11, Fabric-версия Thaumcraft 4 Reload 0.1.0-alpha.7 |
-| NeoForge | NeoForge ≥21.1.259, Architectury API для NeoForge ≥13.0.11, NeoForge-версия Thaumcraft 4 Reload 0.1.0-alpha.7 |
+| Fabric | Fabric Loader ≥0.16.14, Fabric API, Architectury API для Fabric ≥13.0.11, Fabric-версия Thaumcraft 4 Reload с совместимым API |
+| NeoForge | NeoForge ≥21.1.259, Architectury API для NeoForge ≥13.0.11, NeoForge-версия Thaumcraft 4 Reload с совместимым API |
 
 Основной мод и зависимости в JAR аддона не включены. Менять основной мод не требуется. В одиночной игре установите аддон в свою сборку. На сервере он нужен серверу и тем клиентам, которые хотят пользоваться сканированием в инвентаре; канал пакетов объявлен необязательным. Клиент без аддона продолжает использовать обычный таумометр. Если сервер не поддерживает аддон, новый клиент не отправляет ему неизвестные пакеты.
 
-Версия аддона **1.0.1** требует ровно Thaumcraft 4 Reload `0.1.0-alpha.7`. Для прежнего Thaumcraft alpha.6 подходила версия 1.0.0 (она осталась в истории репозитория); с alpha.7 она не загрузится: её метаданные требуют alpha.6.
+Предыдущая версия аддона **1.0.1** требует ровно Thaumcraft 4 Reload `0.1.0-alpha.7`. Версия **1.0.2** убирает это ограничение; код сканирования не менялся. Для прежнего Thaumcraft alpha.6 выпускалась версия 1.0.0 (она осталась в истории репозитория); её метаданные требуют alpha.6. Проверенный вход версии 1.0.2 и результаты тестов указаны в [downloads/BUILD_INFO.json](downloads/BUILD_INFO.json) и [docs/VERIFICATION.md](docs/VERIFICATION.md).
 
 ## Использование
 
@@ -47,4 +47,14 @@
 
 Расположение основного проекта и JAR можно задать параметрами `-Pthaumcraft_home=...`, `-Pthaumcraft_common_jar=...`, `-Pthaumcraft_fabric_jar=...`, `-Pthaumcraft_neoforge_jar=...`. Последние три пути отсчитываются от `thaumcraft_home`. Хеши поддерживаемых бинарников сохранены в [docs/provenance.json](docs/provenance.json).
 
+Проверка SHA-256 выполняется только при сборке и не ограничивает версии при запуске. Для намеренной сборки против других бинарников задайте их действительные контрольные суммы через `-Pthaumcraft_fabric_sha256=...` и `-Pthaumcraft_neoforge_sha256=...`; исходные хеши в `gradle.properties` и `docs/provenance.json` сохраняют прежний проверенный вход.
+
 Результаты и ограничения: [docs/VERIFICATION.md](docs/VERIFICATION.md).
+
+## Удаление и диагностика
+
+Чтобы удалить аддон, уберите его JAR из `mods`; основной Thaumcraft и его зависимости удалять не нужно. При обновлении замените прежний JAR аддона, не оставляя две версии одновременно.
+
+Если мод не загружается, проверьте Minecraft 1.21.1, Java 21, выбранный загрузчик и его зависимости. Журнал игры — `logs/latest.log` в каталоге игрового профиля. При ошибке API приложите этот журнал и точные версии Thaumcraft, аддона и загрузчика к [issue](https://github.com/acak1221/Inventory-scan-thaumcraft-1.21.1/issues).
+
+Изменение метаданных версии 1.0.2, сборка и автоматические проверки выполнены с помощью OpenAI Codex (GPT-6). Авторство оригинального аддона, Thaumcraft и используемых библиотек указано в [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).

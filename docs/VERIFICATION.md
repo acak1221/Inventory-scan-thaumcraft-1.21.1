@@ -1,3 +1,15 @@
+# Сборка 1.0.2+1.21.1 без ограничения версии Thaumcraft
+
+Дата: 01.11.2026. В метаданных Fabric и NeoForge требуемая версия Thaumcraft заменена на `*`. Minecraft по-прежнему строго 1.21.1, требования Java и загрузчиков сохранены. Код сканирования не менялся.
+
+Сборка выполнена на Windows с Temurin Java 21.0.13+9 и Gradle 8.12.1. Использован Thaumcraft 4 Reload из коммита `4c38e3f3bb44c3455718d8f3e04073921ec2a932`, собранный в этой сессии. Его действительные SHA-256 переданы через `-Pthaumcraft_fabric_sha256` и `-Pthaumcraft_neoforge_sha256`; исходные закреплённые хеши не изменялись.
+
+- `:common:test :fabric:build :neoforge:build`: BUILD SUCCESSFUL; 6 JUnit-тестов без ошибок и пропусков; проверки изоляции обоих итоговых JAR пройдены.
+- `:fabric:runGameTest :neoforge:runGameTest`: BUILD SUCCESSFUL; по 13 успешных серверных GameTests на каждом загрузчике, отчёты в `<loader>/build/gametest-results.xml`.
+- Прочитаны метаданные итоговых JAR: версия `1.0.2+1.21.1`, зависимость Thaumcraft `*`; Fabric refmap присутствует; классы Thaumcraft, Minecraft и тестовая обвязка не включены.
+
+Другие версии Thaumcraft, игровой клиент и удалённый мультиплеер в этой сессии не проверялись. Снятие ограничения номера версии не гарантирует совместимость с изменённым API.
+
 # Проверки версии 1.0.1+1.21.1
 
 Дата: 27.10.2026. Перевод аддона на Thaumcraft 4 Reload `0.1.0-alpha.7` (сборка коммита основного репозитория `3f97bfef`). Код аддона не менялся: он собирается против API alpha.7 без правок. Изменены требуемая версия Thaumcraft в `fabric.mod.json` и `neoforge.mods.toml` (было ровно `0.1.0-alpha.6`, из-за чего 1.0.0 не загружается с alpha.7), закреплённые JAR и их SHA-256 в `gradle.properties` и `docs/provenance.json`, версия аддона и название проекта (FOREVA → Thaumcraft 4 Reload в текстах, LICENSE и метаданных; Java-пакеты `dev.foreva.*` и id `tcinventoryscan` не менялись).

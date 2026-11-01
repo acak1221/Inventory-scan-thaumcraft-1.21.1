@@ -6,7 +6,7 @@ modId="tcinventoryscan"
 version="${version}"
 displayName="Thaumic Inventory Scanning"
 authors="Thaumcraft 4 Reload contributors"
-description='''Inventory scanning addon for Thaumcraft 4 Reload 0.1.0-alpha.7 (Minecraft 1.21.1).'''
+description='''Inventory scanning addon for Thaumcraft 4 Reload (Minecraft 1.21.1).'''
 [[dependencies.tcinventoryscan]]
 modId="neoforge"
 type="required"
@@ -28,7 +28,7 @@ side="BOTH"
 [[dependencies.tcinventoryscan]]
 modId="thaumcraft"
 type="required"
-versionRange="[0.1.0-alpha.7]"
+versionRange="*"
 ordering="AFTER"
 side="BOTH"
 [[mixins]]

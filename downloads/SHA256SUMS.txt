@@ -1,2 +1,2 @@
-5c2db588ffc27a6e4a8989732c0c7e33b7ebf93117fb54eb3c2d3dafba17bf10  ThaumicInventoryScanning-fabric-1.0.1+1.21.1.jar
-a522bd264d0b6ed905579c3a75fb580097712a53961b74aeced29d414933be22  ThaumicInventoryScanning-neoforge-1.0.1+1.21.1.jar
+7f401c132e86160339c73e916aad204dd3283828f5d5aa1ae2187a6f650d37dc  ThaumicInventoryScanning-fabric-1.0.2+1.21.1.jar
+728456be8af99da0f7f3f8c8dc50f0705382ffcc579f49a245e63480b78a22ec  ThaumicInventoryScanning-neoforge-1.0.2+1.21.1.jar
