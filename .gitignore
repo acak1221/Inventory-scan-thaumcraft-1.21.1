@@ -8,6 +8,7 @@
 *.class
 *.log
 *.iml
+__pycache__/
 /local.properties
 **/.gradle/
 **/.gradle21/

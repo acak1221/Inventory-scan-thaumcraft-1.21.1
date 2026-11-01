@@ -1,6 +1,6 @@
 # Thaumic Inventory Scanning — Thaumcraft 4 Reload
 
-Готовые файлы **1.0.2+1.21.1**: [NeoForge](downloads/ThaumicInventoryScanning-neoforge-1.0.2+1.21.1.jar), [Fabric](downloads/ThaumicInventoryScanning-fabric-1.0.2+1.21.1.jar). На странице файла нажмите **Download raw file**. Также доступны в [GitHub Releases](https://github.com/acak1221/Inventory-scan-thaumcraft-1.21.1/releases). Контрольные суммы: [SHA256SUMS.txt](downloads/SHA256SUMS.txt). Изменения: [CHANGELOG.md](CHANGELOG.md).
+Актуальные файлы: [последний релиз](https://github.com/acak1221/Inventory-scan-thaumcraft-1.21.1/releases/latest). В каждом релизе — отдельные JAR для Fabric и NeoForge, `SHA256SUMS.txt` и `BUILD_INFO.json`. Изменения: [CHANGELOG.md](CHANGELOG.md). В каталоге `downloads/` сохранена сборка **1.0.2+1.21.1**; авторелиз публикует новые файлы в GitHub Releases, не перезаписывая этот архив.
 
 Отдельный аддон для **Thaumcraft 4 Reload**, **Minecraft 1.21.1**, **Java 21**. В версии **1.0.2+1.21.1** снята проверка точной версии Thaumcraft: зависимость в метаданных обоих загрузчиков — `*`. Совместимость с другими сборками требует сохранения вызываемого API; это не заявка на поддержку всех версий Minecraft или Thaumcraft. Это новая реализация поведения Thaumic Inventory Scanning от BlayTheNinth для порта TC4, а не JAR оригинала 1.7.10 и не аддон для Thaumcraft 6.
 
@@ -50,6 +50,24 @@
 Проверка SHA-256 выполняется только при сборке и не ограничивает версии при запуске. Для намеренной сборки против других бинарников задайте их действительные контрольные суммы через `-Pthaumcraft_fabric_sha256=...` и `-Pthaumcraft_neoforge_sha256=...`; исходные хеши в `gradle.properties` и `docs/provenance.json` сохраняют прежний проверенный вход.
 
 Результаты и ограничения: [docs/VERIFICATION.md](docs/VERIFICATION.md).
+
+## Авторелиз
+
+[Workflow Release](.github/workflows/release.yml) публикует GitHub Release при отправке нового тега `v<mod_version>`.
+
+1. Измените `mod_version` в `gradle.properties`, добавьте запись в `CHANGELOG.md` и отправьте коммит в `main`.
+2. Создайте и отправьте соответствующий тег, например для версии `1.0.3+1.21.1`:
+
+```sh
+git tag v1.0.3+1.21.1
+git push origin v1.0.3+1.21.1
+```
+
+Сначала собирается Thaumcraft из полного коммита `thaumcraft_ref`, затем оба загрузчика аддона. Проверяются JUnit, серверные GameTests, метаданные и изоляция JAR. Только после успешных проверок публикуются оба JAR, их SHA-256 и сведения о сборке. Если тег отличается от `v<mod_version>`, тесты отсутствуют, пропущены или не прошли, релиз не публикуется. Выпуски с суффиксом вроде `-alpha.1`, `-beta.1` или `-rc.1` отмечаются как pre-release. Уже опубликованные релизы не перезаписываются.
+
+Для проверки без публикации: **Actions → Release → Run workflow** на `main`. Результат будет в артефакте `release-bundle`, отчёты — в `test-reports`. При повторе неудачного тегового запуска workflow может закончить загрузку файлов в оставшийся черновик. Для публикации используется штатный `GITHUB_TOKEN`; отдельный PAT не нужен.
+
+`thaumcraft_ref` ограничивает только вход сборки и тестов, а не версии при запуске. При смене версии Thaumcraft вместе с ним обновите пути `thaumcraft_*_jar` и проверьте тестовую обвязку. Workflow вычисляет SHA-256 собственных сборок зависимости и передаёт их явно, сохраняя исходные контрольные суммы в `gradle.properties`.
 
 ## Удаление и диагностика
 

@@ -1,0 +1,140 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    outputs:
+      version: ${{ steps.metadata.outputs.version }}
+      prerelease: ${{ steps.metadata.outputs.prerelease }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: addon
+    steps:
+      - name: Check out Inventory Scanning
+        uses: actions/checkout@v7
+        with:
+          path: addon
+          persist-credentials: false
+
+      - name: Validate version, tag and pinned dependency
+        id: metadata
+        env:
+          RELEASE_TAG: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+        run: python3 tools/release.py metadata --tag "$RELEASE_TAG" --github-output "$GITHUB_OUTPUT"
+
+      - name: Test release validation
+        run: python3 -m unittest discover -s tools -p 'test_*.py' -v
+
+      - name: Check out the pinned Thaumcraft source
+        uses: actions/checkout@v7
+        with:
+          repository: acak1221/Thaumcraft-1.21.1
+          ref: ${{ steps.metadata.outputs.thaumcraft_ref }}
+          path: Thaumcraft-1.21.1
+          persist-credentials: false
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Set up Gradle and cache
+        uses: gradle/actions/setup-gradle@v6
+
+      - name: Build the external Thaumcraft API and runtime jars
+        working-directory: Thaumcraft-1.21.1
+        run: bash ./gradlew --no-daemon --console=plain :common:jar :fabric:remapJar :neoforge:remapJar
+
+      - name: Verify the dependency commit and record its actual checksums
+        id: inputs
+        run: python3 tools/release.py inputs --github-output "$GITHUB_OUTPUT"
+
+      - name: Build both loaders and run JUnit and server GameTests
+        env:
+          FABRIC_SHA: ${{ steps.inputs.outputs.fabric_sha256 }}
+          NEOFORGE_SHA: ${{ steps.inputs.outputs.neoforge_sha256 }}
+        run: |
+          bash ./gradlew --no-daemon --console=plain \
+            "-Pthaumcraft_fabric_sha256=$FABRIC_SHA" \
+            "-Pthaumcraft_neoforge_sha256=$NEOFORGE_SHA" \
+            :common:test :fabric:build :neoforge:build :fabric:runGameTest :neoforge:runGameTest
+
+      - name: Validate release jars and prepare checksums, provenance and notes
+        run: python3 tools/release.py prepare
+
+      - name: Upload verified release bundle
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-bundle
+          path: addon/build/release/
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Upload test reports and logs
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: test-reports
+          path: |
+            addon/common/build/test-results/test/
+            addon/fabric/build/gametest-results.xml
+            addon/neoforge/build/gametest-results.xml
+            addon/fabric/run-gametest/logs/
+            addon/neoforge/run-gametest/logs/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  publish:
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - name: Download verified release bundle
+        uses: actions/download-artifact@v8
+        with:
+          name: release-bundle
+          path: release
+
+      - name: Publish the release with both production jars
+        working-directory: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_VERSION: ${{ needs.build.outputs.version }}
+          PRERELEASE: ${{ needs.build.outputs.prerelease }}
+        shell: bash
+        run: |
+          sha256sum --check SHA256SUMS.txt
+          if gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft' > "$RUNNER_TEMP/release-draft.txt" 2>/dev/null; then
+            if [ "$(cat "$RUNNER_TEMP/release-draft.txt")" != true ]; then
+              echo 'This release is already published; use a new version and tag.' >&2
+              exit 1
+            fi
+          else
+            gh release create "$RELEASE_TAG" --verify-tag --draft \
+              --title "Thaumic Inventory Scanning $RELEASE_VERSION" --notes-file RELEASE_NOTES.md
+          fi
+          gh release upload "$RELEASE_TAG" ./*.jar SHA256SUMS.txt BUILD_INFO.json --clobber
+          latest=true
+          if [ "$PRERELEASE" = true ]; then latest=false; fi
+          gh release edit "$RELEASE_TAG" --draft=false --prerelease="$PRERELEASE" --latest="$latest" \
+            --title "Thaumic Inventory Scanning $RELEASE_VERSION" --notes-file RELEASE_NOTES.md
